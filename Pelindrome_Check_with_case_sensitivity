@@ -1,0 +1,38 @@
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{
+		
+           int N = 0; 
+	
+	       N = Convert.ToInt32(Console.ReadLine());
+		if(N>=3 && N<=5000){
+		 string givenWord;
+		givenWord = Console.ReadLine();
+			Console.WriteLine(minInsertionsNeeded(givenWord.ToCharArray(), 
+											0, givenWord.Length - 1)); 
+			
+		}
+		
+	}
+	static int minInsertionsNeeded(char []givenstr, 
+								int l, int h) { 
+		if (l > h){
+			return int.MaxValue; }
+        else if (l == h) {return 0; }
+		else if (l == h - 1) {
+			return (givenstr[l].Equals(givenstr[h]) )? 0 : 1; } 
+            
+        else{
+		return (givenstr[l].Equals(givenstr[h]))? 
+				minInsertionsNeeded(givenstr, 
+								l + 1, h - 1): 
+				(Math.Min(minInsertionsNeeded(givenstr, l, 
+											h - 1), 
+						minInsertionsNeeded(givenstr, l + 
+										1, h)) + 1); 
+		}
+	} 
+}

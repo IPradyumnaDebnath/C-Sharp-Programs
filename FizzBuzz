@@ -1,0 +1,37 @@
+using System;
+					
+public class Program
+{
+	
+    public static void fizzBuzz(int n)
+    {
+for(int i=1;i<=n;i++){
+     if (i% 3==0 || i%5==0){
+          if (i% 3==0 && i%5==0){
+    Console.WriteLine("FizzBuzz");}
+           else if(i% 3==0 && i%5!=0){
+               Console.WriteLine("Fizz");
+           }
+               else{
+               Console.WriteLine("Buzz");
+               
+           }
+	 }else{
+		  Console.WriteLine(i);
+	 }
+     
+}
+    }
+  
+
+    public static void Main(string[] args)
+    {
+        int n = Convert.ToInt32(Console.ReadLine().Trim());
+
+        fizzBuzz(n);
+    }
+
+       
+		
+	}
+	

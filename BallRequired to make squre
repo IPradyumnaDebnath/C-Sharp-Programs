@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+class CandidateCode {
+    static void Main(String[] args) {
+	
+	int NoofLines = 0;
+    int ballsCount=0;
+    int noBallsInline=0;
+	double ballsPerLine;
+		double reqBalls=0;
+    NoofLines = Convert.ToInt32(Console.ReadLine());
+    if (NoofLines>0 && NoofLines<=10000){
+    for(int i=1;i<=NoofLines;i++)
+    {
+        if ( i==1){
+          noBallsInline=1;
+			ballsCount=0;
+			ballsCount=ballsCount+noBallsInline;
+        }else{
+			noBallsInline=noBallsInline+2;
+			ballsCount=ballsCount+noBallsInline;
+		}
+	}
+		 ballsPerLine = Math.Sqrt(ballsCount);
+		
+		for(int j=1;j<=NoofLines;j++)
+		{
+			 if ( j==1){
+          noBallsInline=1;
+			reqBalls=ballsPerLine-1;	 
+				 
+        }else{
+			noBallsInline=noBallsInline+2;
+				 if(ballsPerLine>noBallsInline){
+			reqBalls=reqBalls+(ballsPerLine-noBallsInline);
+				 }
+			
+		}
+		}
+		Console.WriteLine(reqBalls);
+    }
+    }
+}

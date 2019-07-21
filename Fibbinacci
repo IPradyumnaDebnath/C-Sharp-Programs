@@ -1,0 +1,21 @@
+class Result
+{
+
+    public static List<int> fibonacci(int n)
+    {   List<int> fibbonaciS = new List<int>();
+ int f1 = 0, f2 = 1, i; 
+      
+       
+      
+        for (i = 1; i <= n; i++) 
+        { 
+            fibbonaciS.Add(f1); 
+            int next = f1 + f2; 
+            f1 = f2; 
+            f2 = next; 
+        } 
+     return fibbonaciS;
+    }
+
+}
+

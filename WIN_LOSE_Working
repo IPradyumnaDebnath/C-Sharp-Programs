@@ -1,0 +1,118 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Game
+{
+public class WinorLose
+{
+public static void Main(string[] args)
+{
+    int NoOfTestCases = 0; 
+// get inputs from user
+Console.WriteLine("Enter number of test cases: ");
+NoOfTestCases = Convert.ToInt32(Console.ReadLine());
+if ( NoOfTestCases >=1 && NoOfTestCases<=10 )
+{
+    for (int testCase=0; testCase<NoOfTestCases;testCase++)
+	{
+    int NoOfPlayer_Vilain = 0; 
+	var strengthofVillains = new List<int>();
+    string strengthofVillainsinput = "";
+    var sListV = new List<string>();
+	var energyOfPlayers = new List<int>();
+    string energyOfPlayersinput = "";
+    var sListP = new List<string>();
+    bool shallWin=true;
+    bool villainStrengthinRange=true;
+    bool playerEnergyinRange=true;
+	 // get inputs from user
+Console.WriteLine("Enter input Values for Testcase " + testCase);
+Console.WriteLine("Enter number of villains and player: ");
+NoOfPlayer_Vilain = Convert.ToInt32(Console.ReadLine());
+if (NoOfPlayer_Vilain >=1 && NoOfPlayer_Vilain<=1000 )
+{
+    Console.WriteLine("Enter space separated strengths of Villains: ");
+        strengthofVillainsinput = Console.ReadLine();
+        sListV = strengthofVillainsinput.Split(' ').ToList();
+        try
+        {
+            foreach (var strength in sListV) 
+             {
+                strengthofVillains.Add(int.Parse(strength));
+            }
+            
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("An error occurred. You may have entered the list incorrectly. Please make sure you only enter integer values separated by a space. \r\n");
+        }
+        strengthofVillains.Sort(); 
+    foreach (var strengthVal in strengthofVillains) 
+            { if(strengthVal<1 || strengthVal>100000){
+                villainStrengthinRange=false;
+                break;
+            }
+         }
+        if (villainStrengthinRange==true)
+        {
+            Console.WriteLine("Enter space separated energy of players: ");
+energyOfPlayersinput = Console.ReadLine();
+        sListP = energyOfPlayersinput.Split(' ').ToList();
+        try
+        {
+            foreach (var energy in sListP) {
+                energyOfPlayers.Add(int.Parse(energy));
+            }
+                
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("An error occurred. You may have entered the list incorrectly. Please make sure you only enter integer values separated by a space. \r\n");
+        }
+	energyOfPlayers.Sort();
+    foreach (var energyVal in energyOfPlayers) 
+            { if(energyVal<1 || energyVal>100000){
+                playerEnergyinRange=false;
+                break;
+            }
+         }
+         if (playerEnergyinRange==true){
+             for( int i= 0; i < NoOfPlayer_Vilain; i++){
+if (energyOfPlayers[i] <= strengthofVillains[i]) {
+		shallWin=false;
+		break;
+		}
+             }
+        if (shallWin==true)
+	 {
+		 Console.WriteLine("WIN for Testcase "+testCase);
+	 }
+	 else{
+		 Console.WriteLine("LOSE for Testcase "+testCase);
+	 }
+         }else{
+             Console.WriteLine("Player Energy out of range! Must fall in Range:1 <= strength<=100000 ");
+         }
+         
+        }
+        else{
+            Console.WriteLine("Villain strength out of range! must fall in Range:1 <= strength<=100000 ");
+        }
+}
+else{
+Console.WriteLine("No of Player/Villain out of range! Must fall in  Range : 1<= N <=1000");
+}
+    }
+}
+else{
+Console.WriteLine("Test Case no out of range! Must fall in  Range : 1<= T <=10");
+}
+}
+}
+}
+
+
+		 

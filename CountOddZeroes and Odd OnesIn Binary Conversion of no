@@ -1,0 +1,89 @@
+using System;
+using System.Numerics;
+public class Solution {
+    public int CountZeroes(string str) {
+
+        int count = 0;
+        foreach(var character in str)
+        {
+            if (character == '0') count++;
+        }
+
+        return count;
+    }
+
+    public int CountOnes(string str) {
+
+        int count = 0;
+        foreach(var character in str)
+        {
+            if (character == '1') count++;
+        }
+
+        return count;
+    }
+    public string ConvertToBinary(ulong  n) {
+
+        ulong  quot;
+        string rem = "";
+        while (n >= 1) {
+            quot = n / 2;
+            rem += (n % 2).ToString();
+            n = quot;
+        }
+        string binaryValue = "";
+        for (int i = rem.Length - 1; i >= 0; i--)
+        {
+            binaryValue = binaryValue + rem[i];
+        }
+        return binaryValue;
+    }
+
+
+    public static void Main(string[] args) {
+        int t = 0;
+        t = Convert.ToInt32(Console.ReadLine());
+
+
+        if (t >= 1 && t <= 100) {
+
+            for (int testCase = 0; testCase < t; t++) {
+                //Your IDE doesn't support BigInteger!!!
+                ulong n = ulong.Parse(Console.ReadLine());
+
+                Solution P1 = new Solution();
+                string str = P1.ConvertToBinary(n);
+                int OddZeroCount = 0;
+                int OddOneCount = 0;
+                if (n == 0) {
+                    OddZeroCount = 1;
+                }
+                if (P1.CountZeroes(str) != 0 && P1.CountZeroes(str) % 2 != 0) {
+                    OddZeroCount++;
+                };
+                if (P1.CountOnes(str) != 0 && P1.CountOnes(str) % 2 != 0) {
+                    OddOneCount++;
+                };
+                for (int i = 1; i < str.Length; i++) {
+                    for (int start = 0; start <= str.Length - i; start++) {
+                        string substr = str.Substring(start, i);
+                        Solution D = new Solution();
+                        int zeroCount = D.CountZeroes(substr);
+                        if (zeroCount != 0 && zeroCount % 2 != 0) {
+                            OddZeroCount++;
+                        };
+                        int OneCount = D.CountOnes(substr);
+                        if (OneCount != 0 && OneCount % 2 != 0) {
+                            OddOneCount++;
+                        }
+
+                    }
+                }
+                Console.WriteLine(OddZeroCount + " " + OddOneCount);
+            }
+        }
+
+
+    }
+
+}

@@ -1,0 +1,99 @@
+// C# program to find the maximum sum 
+// such that no three are consecutive 
+using System; 
+using System.Collections.Generic;
+using System.Linq;
+namespace NewYearParty
+{
+public class TickerWinner
+{
+public static void Main(string[] args)
+{//var declaration
+	int NoOfTestCases = 0;
+    //Input 
+ NoOfTestCases = Convert.ToInt32(Console.ReadLine());
+  if ( NoOfTestCases >=1 && NoOfTestCases<=10 )
+  {
+	   for (int testCase=0; testCase<NoOfTestCases;testCase++)
+	   {
+		   int incl, excl,excl_new , indexreq=0; 
+	       int sumValue=0;
+	       int tempSum=0;
+	       int ticketTwo=0;
+           int ticketOne=0;
+           int resultTicketval=0;
+		   int noOfHouses = 0; 
+	       var indexList = new List<int>();
+		   var tickerList = new List<int>();
+           string ticketListInput;
+           var separatedlistTicket = new List<string>();
+		   char[] charSeparators = new char[] {' '};
+	      bool valueMatched=false;
+          bool ticketIntegerinRange=true;
+		  noOfHouses = Convert.ToInt32(Console.ReadLine());
+		   if (noOfHouses >=1 && noOfHouses<=10000 ){
+			    ticketListInput = Console.ReadLine();
+               separatedlistTicket = ticketListInput.Split(charSeparators,noOfHouses).ToList();
+               foreach (var ticket in separatedlistTicket) 
+             {
+                tickerList.Add(int.Parse(ticket));
+            }
+            foreach (var tickerVal in tickerList) {
+                if (tickerVal<-1000 ||tickerVal>1000 ){
+                    ticketIntegerinRange=false;
+                }
+            }
+            if (ticketIntegerinRange==true){
+			incl=tickerList[0];
+			  excl=0;
+			  for (int index=1;index<noOfHouses;index++)
+			  {
+				  excl_new = (incl > excl) ? 
+							incl : excl; 
+				  incl = excl + tickerList[index]; 
+			      excl = excl_new; 
+				  
+			  }
+			  sumValue=((incl > excl) ? 
+							incl : excl); 
+							for(int i=0;i<(noOfHouses-2);i++)
+							{
+								tempSum=tickerList[i]+tickerList[i+2];
+                                 if (tempSum==sumValue)
+                                 {valueMatched=true;
+									 if (ticketOne==0)
+                                     {
+                                         ticketOne=tickerList.ElementAt(i+2);
+                                         indexreq=i;
+                                     }else
+                                     {
+                                         if (tickerList.ElementAt(i+2)>ticketOne)
+                                         {
+                                            ticketOne=tickerList.ElementAt(i);
+                                            indexreq=i; 
+                                         }
+                                     }
+
+                                 }
+							}
+                            if (valueMatched==true)
+                            {ticketTwo=tickerList[indexreq];
+                            resultTicketval=ticketOne*10 + ticketTwo;
+                            
+                            }else{
+                                resultTicketval=tickerList.Max();
+
+                            }
+                            Console.WriteLine(resultTicketval);
+           
+           }
+	   }
+  }
+  }
+}
+}
+}
+
+
+
+
