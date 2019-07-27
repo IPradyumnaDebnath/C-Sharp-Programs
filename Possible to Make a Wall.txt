@@ -1,0 +1,33 @@
+using System;
+
+public class MakeaWall {
+    public static void Main() {
+
+        int x, noOfsmallBricks, noOfBigBricks;
+        bool possibleToMake;
+        //User Input
+        //Directly call canMakeWall if we have required input 
+        Console.Write("Please enter size of wall ");
+        x = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Enter no of small bricks available ");
+        noOfsmallBricks = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Enter no of big bricks available ");
+        noOfBigBricks = Convert.ToInt32(Console.ReadLine());
+        possibleToMake = canMakeWall(x, noOfsmallBricks, noOfBigBricks);
+
+
+    }
+
+
+    static bool canMakeWall(int wallLength, int noOfSmallBricks, int noOfBigBricks) {
+        int noOfBigBricksRequired = wallLength / 5;
+        int noOfSmallBricksRequired = wallLength - (5 * noOfBigBricksRequired);
+        // Check if we have sufficient no of bricks and return true false
+        if ((noOfSmallBricks >= noOfSmallBricksRequired) && (noOfBigBricks >= noOfBigBricksRequired))
+            return true;
+        else
+            return false;
+
+    }
+}
+

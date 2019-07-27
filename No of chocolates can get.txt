@@ -1,0 +1,30 @@
+using System;
+
+public class MakeaWall {
+    public static void Main() {
+
+        int N, noOfChocolates;
+        //User Input 
+        //can directly call findNoOfChocolates if N is given
+        Console.Write("How much money do you have ? ");
+        N = Convert.ToInt32(Console.ReadLine());
+
+        noOfChocolates = findNoOfChocolates(N);
+        Console.WriteLine(noOfChocolates);
+
+    }
+
+
+    static int findNoOfChocolates(int moneyAvailable) {
+        int buyChocolate = 0;
+        int freeChocolate = 0;
+        //max No of chocolates can buy 
+        buyChocolate = moneyAvailable * 4;
+        //Free chocolates can get providing wrappers
+        freeChocolate = buyChocolate / 3;
+
+        return buyChocolate + freeChocolate;
+
+    }
+}
+
