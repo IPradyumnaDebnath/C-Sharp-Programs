@@ -1,0 +1,42 @@
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{int N=2;
+	 string S="1A 2F 1C";
+	 	string [] rowSeats={"A","B","C","D","E","F","G","H","J","K" } ;
+        string [,]seatArr=new string[100,10];
+        string[] searBookedArr=S.Split(new char[0]);
+        int count=0;
+        
+        for(int i=0;i<N;i++)
+        {
+           for(int j=0;j<rowSeats.Length;j++) {
+               seatArr[i,j]=(i+1)+rowSeats[j];
+           }
+        }
+        
+       for(int k=0;k<N;k++)
+        { int noOfContBlank=0;
+           for(int l=0;l<rowSeats.Length;l++) {
+              if(Array.IndexOf(searBookedArr,seatArr[k,l])==-1){
+                  noOfContBlank++;
+				  Console.WriteLine(seatArr[k,l]);
+				 
+              }else{
+                  noOfContBlank=0;
+				   Console.WriteLine("NULL");
+              }
+              if (noOfContBlank==4){	
+				  noOfContBlank=0;
+                  count++;
+				   Console.WriteLine("Val");
+				  Console.WriteLine(count);
+				  
+              }
+           }
+        }
+	
+	}
+}

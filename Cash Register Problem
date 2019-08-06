@@ -1,0 +1,78 @@
+// Create myArr Array of objects which hold the monitary values (the challenge forgot about fifty-cent(HALF-DOLLAR) pieces which are fairly common)
+const myArr = [
+  { id: 'ONE HUNDRED', val: 100.00},
+  { id: 'TWENTY', val: 20.00},
+  { id: 'TEN', val: 10.00},
+  { id: 'FIVE', val: 5.00},
+  { id: 'ONE', val: 1.00},// could be bill or coin.
+  { id: 'HALF-DOLLAR', val:0.50},//coin should be added.
+  { id: 'QUARTER', val: 0.25},
+  { id: 'DIME', val: 0.10},
+  { id: 'NICKEL', val: 0.05},
+  { id: 'PENNY', val: 0.01}
+];
+function checkCashRegister(price, cash, cid) {
+  //Use .reduce to transform CID array into  register drawer (regDrw).
+  let regDrw = cid.reduce(function(acc, curr) {
+    acc.total += curr[1];
+    acc[curr[0]] = curr[1];
+    //console.log(acc);//debugging
+    return acc;
+  }, { total: 0 });
+  // Handle exact change
+  let messageArr = { status: null, change: [] };// 2d message arr.
+  let change = cash - price;
+  if (regDrw.total === change) {
+    messageArr.status = 'CLOSED';
+    messageArr.change = cid;
+    console.log(messageArr);//debugging
+    return messageArr;
+  };
+  // Handle insufficient funds
+  if (regDrw.total < change) {
+    messageArr.status = 'INSUFFICIENT_FUNDS';
+    console.log(messageArr)//debugging
+    return messageArr;
+  };
+  // Loop through the monitary amounts myArray
+  var change_arr = myArr.reduce(function(acc, curr) {
+    var value = 0;
+    // need to refactor this...
+    while (regDrw[curr.id] > 0 && change >= curr.val) {// While money is in the drawer
+    // And while the id: value: is larger than the change in drawer
+      change -= curr.val;
+      regDrw[curr.id] -= curr.val;
+      value += curr.val;
+      // Round change to the nearest hundreth 'PENNY'.
+      change = Math.round(change * 100) / 100;
+    };
+    // Add this currency id to the messageArr only if any was used.
+    if (value > 0) {
+        acc.push([ curr.id, value ]);
+    };
+    return acc; // Return the current pushed acc
+  }, []); // Empty array for .reduce
+  // If no elements in change_arr or leftover change, return "Insufficient Funds"
+  if (change_arr.length < 1 || change > 0) {
+    messageArr.status = 'INSUFFICIENT_FUNDS';
+    console.log(messageArr);//debugging
+    return messageArr;
+  };
+  // Here is your change, ma'am.
+  messageArr.status = 'OPEN';
+  messageArr.change = change_arr;
+  console.log(messageArr);//debugging
+  return messageArr;
+};
+// Example cash-in-drawer array:
+// [["PENNY", 1.01],
+// ["NICKEL", 2.05],
+// ["DIME", 3.1],
+// ["QUARTER", 4.25],
+// ["ONE", 90],
+// ["FIVE", 55],
+// ["TEN", 20],
+// ["TWENTY", 60],
+// ["ONE HUNDRED", 100]]
+
+checkCashRegister(19.5, 20, [["PENNY", 1.01], ["NICKEL", 2.05], ["DIME", 3.1], ["QUARTER", 4.25], ["ONE", 90], ["FIVE", 55], ["TEN", 20], ["TWENTY", 60], ["ONE HUNDRED", 100]]);
